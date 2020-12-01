@@ -1,5 +1,5 @@
 ############### Blackjack Project #####################
-
+import random
 #Difficulty Normal 😎: Use all Hints below to complete the project.
 #Difficulty Hard 🤔: Use only Hints 1, 2, 3 to complete the project.
 #Difficulty Extra Hard 😭: Only use Hints 1 & 2 to complete the project.
@@ -35,13 +35,39 @@
 #11 is the Ace.
 #cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
+def deal_card():
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    random_card = random.choice(cards)
+    return random_card
+
 #Hint 5: Deal the user and computer 2 cards each using deal_card() and append().
-#user_cards = []
-#computer_cards = []
+user_cards = []
+computer_cards = []
+
+for card in range(2):
+    user_cards.append(deal_card())
+
+print(f"The user has {user_cards} cards")
+
+for card in range(2):
+    computer_cards.append(deal_card())
+print(f"The computer has {computer_cards} cards")
 
 #Hint 6: Create a function called calculate_score() that takes a List of cards as input
 #and returns the score.
 #Look up the sum() function to help you do this.
+
+total_user = 0
+total_computer = 0
+
+def calculate_score(total_user, total_computer):
+    for card in user_cards:
+        total_user += card
+    for card in computer_cards:
+        total_computer += card
+    return f"The user has: {total_user}\nComputer has: {total_computer}"
+
+print(calculate_score(total_user, total_computer))
 
 #Hint 7: Inside calculate_score() check for a blackjack (a hand with only 2 cards: ace + 10) and return 0 instead of the actual score. 0 will represent a blackjack in our game.
 
