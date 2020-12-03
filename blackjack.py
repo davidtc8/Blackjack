@@ -34,10 +34,11 @@ import random
 #Hint 4: Create a deal_card() function that uses the List below to *return* a random card.
 #11 is the Ace.
 #cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_card():
-    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     random_card = random.choice(cards)
+    cards.remove(random_card)
     return random_card
 
 #Hint 5: Deal the user and computer 2 cards each using deal_card() and append().
@@ -65,6 +66,39 @@ def calculate_score(total_user, total_computer):
         total_user += card
     for card in computer_cards:
         total_computer += card
+    if total_computer == 21:
+        print('The computer has won!')
+    elif total_user == 21:
+        print('you have won!')
+    elif total_user <= 21:
+        decision = input("Would you like another card? (type yes or no): ").lower()
+        if decision == 'yes':
+            for card in user_cards:
+                card_given = deal_card()
+                user_cards.append(card_given)
+                print(f"You received a {card_given}")
+                total_user += card_given
+                print(f"The user now has {total_user}")
+                break
+            ace = 11
+            blackjack = 21
+            if ace in user_cards and total_user > blackjack:
+                user_cards.remove(ace)
+                user_cards.append(1)
+                total_user = 0
+                for card in user_cards:
+                    total_user += card
+                print(f"You converted the {ace} to 1, and the total you have is: {total_user}")
+            elif total_user > blackjack:
+                print('You lose!')
+        else:
+            print("The game has ended")
+    elif total_computer <= 17:
+        for card in computer_cards:
+            next_computer_card = deal_card()
+            computer_cards.append(next_computer_card)
+            total_computer += card_given
+            continue
     return f"The user has: {total_user}\nComputer has: {total_computer}"
 
 print(calculate_score(total_user, total_computer))
